@@ -87,7 +87,7 @@
 
 <body>
     <nav id="toolbar" class="navbar navbar-dark bg-dark px-3">
-        <span class="navbar-brand mb-0 h1">Report</span>
+        <span class="navbar-brand mb-0 h1">Test</span>
         <div class="d-flex align-items-center gap-2">
             <label for="page-size" class="text-light mb-0">Page size</label>
             <select id="page-size" class="form-select form-select-sm w-auto">
@@ -108,8 +108,16 @@
     <!-- Source sections; paginated into pages by the script below. -->
     <div id="source">
         <section>
-            <h1>Cylindrical Near Field Measurement</h1>
-            <p class="lead">Dummy title section. Replace with actual content.</p>
+            <h1>Logger Library</h1>
+            <!-- Add 'Log', 'Info', 'Warn', 'Error' buttons for the logger library testing -->
+            <!-- Buttons will be seperated by a small margin. -->
+            <div class="mb-3" role="group">
+                <button class="mx-1 btn btn-secondary" id="debug-btn" onclick="console.debug('Debug button clicked')">Debug</button>
+                <button class="mx-1 btn btn-primary" id="log-btn" onclick="console.log('Log button clicked')">Log</button>
+                <button class="mx-1 btn btn-info" id="info-btn" onclick="console.info('Info button clicked')">Info</button>
+                <button class="mx-1 btn btn-warning" id="warn-btn" onclick="console.warn('Warn button clicked')">Warn</button>
+                <button class="mx-1 btn btn-danger" id="error-btn" onclick="console.error('Error button clicked')">Error</button>
+            </div>
         </section>
     </div>
 
