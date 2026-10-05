@@ -9,6 +9,11 @@
         "import": "./index.mjs"
     },
     "scripts": {
-        "test": "node --test"
+        "test": "node --test",
+        "release": "bash release.sh",
+        "doc": "jsdoc -c jsdoc.json"
+    },
+    "devDependencies": {
+        "jsdoc": "^4.0.5"
     }
 }

@@ -1,0 +1,11 @@
+{
+    "plugins": ["./plugins/readme-image-paths.js"],
+    "source": {
+        "include": ["index.js"]
+    },
+    "opts": {
+        "destination": "./doc/api",
+        "recurse": true,
+        "readme": "README.md"
+    }
+}
