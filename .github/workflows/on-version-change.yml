@@ -67,7 +67,7 @@ jobs:
             # Install dependencies and publish the package
             - run: npm install
             - run: npm ci
-            - run: npm publish --provenance --access public
+            - run: npm publish --access public
               env:
                 NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
