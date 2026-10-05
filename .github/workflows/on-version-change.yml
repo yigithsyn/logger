@@ -65,11 +65,12 @@ jobs:
                 echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
             # Install dependencies and publish the package
-            - run: npm install
+            - run: npm i
+              if: steps.version.outputs.changed == 'true'
             - run: npm ci
+              if: steps.version.outputs.changed == 'true'
             - run: npm publish --access public
-              env:
-                NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+              if: steps.version.outputs.changed == 'true'
 
             # Create GitHub release if the version has changed
             - name: Create GitHub release
