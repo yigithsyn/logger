@@ -23,15 +23,11 @@ if [ "$current_version" != "$previous_version" ]; then
     git push origin "v$current_version"
 
     echo "- Creating release."
-    previous_tag=$(git describe --tags --abbrev=0 "${current_sha}^" 2>/dev/null || true)
-    echo "Previous tag: $previous_tag"
-    if [[ -n "$previous_tag" ]]; then
-    git log --format='- %s' "${previous_tag}..${GITHUB_SHA}" > release-notes.md
-    else
-    git log --format='- %s' "${GITHUB_SHA}" > release-notes.md
-    fi
-    gh release create "v$current_version" --notes-file release-notes.md
-    rm release-notes.md
+    echo v$current_version >> release-notes.md
+    git log --format='- %s' "${previous_sha}..${current_sha}" > release-notes.md
+    cat release-notes.md
+    # gh release create "v$current_version" --notes-file release-notes.md
+    # rm release-notes.md
 
     echo "- Publishing to NPM registry."
     npm publish --access public
