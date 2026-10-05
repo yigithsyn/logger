@@ -19,7 +19,7 @@ echo "- Previous version: $previous_version"
 if [ "$current_version" != "$previous_version" ]; then
     echo "Version has changed. Processing..."
     echo "- Creating a new tag for version $current_version."
-    git tag "v$current_version"
+    git tag -a "v$current_version" -m "Release version $current_version"
     git push origin "v$current_version"
 
     echo "- Creating release."
