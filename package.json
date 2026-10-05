@@ -1,6 +1,6 @@
 {
     "name": "@yigithsyn/logger",
-    "version": "0.2.14",
+    "version": "0.2.15",
     "type": "commonjs",
     "main": "./index.js",
     "module": "./index.mjs",

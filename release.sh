@@ -4,9 +4,9 @@ ver=$(jq -r '.version' package.json)
 echo "- Releasing version: $ver ..."
 
 printf "  - Creating tag v%s ... " "$ver"
-git tag v$ver && git push origin v$ver
+git tag v$ver && git push origin v$ver > /dev/null 2>&1
 printf "DONE\n"
 
 printf "  - Publishing version %s to NPM registry ... " "$ver"
-npm publish --access public
+npm publish --access public > /dev/null 2>&1
 printf "DONE\n"
