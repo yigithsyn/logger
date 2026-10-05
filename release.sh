@@ -18,9 +18,20 @@ echo "- Previous version: $previous_version"
 # If current version is different from the previous version:
 if [ "$current_version" != "$previous_version" ]; then
     echo "Version has changed. Processing..."
-    echo "- Creating a new tag for version $current_version."
-    git tag -a "v$current_version" -m "Release version $current_version"
-    git push origin "v$current_version"
+    tag="v$current_version"
+    if git rev-parse --verify --quiet "refs/tags/$tag" >/dev/null; then
+        tag_sha=$(git rev-list -n 1 "$tag")
+        if [ "$tag_sha" != "$current_sha" ]; then
+            echo "Error: tag $tag already exists at $tag_sha, not $current_sha." >&2
+            exit 1
+        fi
+        echo "- Tag $tag already exists for the current commit."
+    else
+        echo "- Creating a new tag for version $current_version."
+        git tag -a "$tag" -m "Release version $current_version"
+    fi
+    git push origin "$tag"
+    echo "- Pushed tag $tag to origin."
 
     echo "- Creating release."
     echo v$current_version >> release-notes.md
@@ -33,5 +44,4 @@ if [ "$current_version" != "$previous_version" ]; then
     npm publish --access public
 
 fi
-
 
