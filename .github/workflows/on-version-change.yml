@@ -65,6 +65,7 @@ jobs:
                 echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
             # Install dependencies and publish the package
+            - run: npm install
             - run: npm ci
             - run: npm publish --provenance --access public
               env:
