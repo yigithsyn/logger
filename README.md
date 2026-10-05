@@ -51,13 +51,13 @@ console.warn('This is a warning message');
 console.error('This is an error message');
 ```
 
-The ouput usually in following format:
+## Output Format
 
-HTML Console:
+### HTML Console:
 
 ![alt text](docs/img/html-console.png)
 
-Terminal Console:
+### Terminal Console:
 
 ![alt text](docs/img/terminal-console.png)
 
