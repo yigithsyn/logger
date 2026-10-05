@@ -69,6 +69,10 @@ jobs:
               if: steps.version.outputs.changed == 'true'
             - run: npm ci
               if: steps.version.outputs.changed == 'true'
+            - run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+              env:
+                NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+              if: steps.version.outputs.changed == 'true'
             - run: npm publish --access public
               if: steps.version.outputs.changed == 'true'
 
