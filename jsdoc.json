@@ -1,5 +1,5 @@
 {
-    "plugins": ["./plugins/readme-image-paths.js"],
+    "plugins": ["./docs/plugins/readme-image-paths.js"],
     "source": {
         "include": ["index.js"]
     },
