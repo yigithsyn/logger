@@ -55,11 +55,11 @@ The ouput usually in following format:
 
 HTML Console:
 
-![alt text](doc/img/html-console.png)
+![alt text](docs/img/html-console.png)
 
 Terminal Console:
 
-![alt text](doc/img/terminal-console.png)
+![alt text](docs/img/terminal-console.png)
 
 
 
