@@ -50,3 +50,17 @@ console.info('This is an info message');
 console.warn('This is a warning message');
 console.error('This is an error message');
 ```
+
+The ouput usually in following format:
+
+```bash
+[DEBUG] 2026-10-05T11:04:40.081Z Debug log printed
+[LOG] 2026-10-05T11:04:40.087Z Log log printed
+[WARN] 2026-10-05T11:04:40.087Z Warn log printed
+[INFO] 2026-10-05T11:04:40.087Z Info log printed
+[ERROR] 2026-10-05T11:04:40.088Z Error log printed
+```
+
+## License
+
+This project is licensed under the BSD License.

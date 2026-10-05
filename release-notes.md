@@ -1,0 +1,1 @@
+- Bump version to 0.2.8 and update permissions in workflow
