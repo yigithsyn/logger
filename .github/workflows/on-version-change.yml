@@ -54,6 +54,7 @@ jobs:
 
             # Create release tag if the version has changed
             - name: Create release tag
+              id: tag
               if: steps.version.outputs.changed == 'true'
               run: |
                 git config --global user.name "github-actions[bot]"
@@ -61,6 +62,7 @@ jobs:
                 VERSION=$(node -p "require('./package.json').version")
                 git tag "v$VERSION"
                 git push origin "v$VERSION"
+                echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
             # Install dependencies and publish the package
             - run: npm ci
@@ -73,8 +75,8 @@ jobs:
               if: steps.version.outputs.changed == 'true'
               uses: actions/create-release@v1
               with:
-                tag_name: "v$(node -p "require('./package.json').version")"
-                release_name: "v$(node -p "require('./package.json').version")"
+                tag_name: v${{ steps.tag.outputs.version }}
+                release_name: v${{ steps.tag.outputs.version }}
                 draft: false
                 prerelease: false
               env:
