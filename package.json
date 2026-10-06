@@ -1,10 +1,24 @@
 {
     "name": "@yigithsyn/logger",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "type": "commonjs",
     "bin": {
         "logger": "./cli.js"
     },
+    "engines": {
+        "node": ">=22.5.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/yigithsyn/logger.git"
+    },
+    "keywords": [
+        "logger",
+        "logging",
+        "cli",
+        "sqlite"
+    ],
+    "homepage": "https://yigithsyn.github.io/logger",
     "main": "./index.js",
     "module": "./index.mjs",
     "exports": {

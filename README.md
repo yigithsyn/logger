@@ -63,7 +63,10 @@ console.error('This is an error message');
 
 ## Command Line Interface (CLI)
 
-You can use the logger library from the command line to log messages with different log levels.
+You can use the logger library from the command line to log messages with different log levels. 
+CLI tool stores all log messages in a local SQLite database for later retrieval and analysis. 
+Database file is created in the user's local application data (LOCALAPPDATA) directory on Windows or in `~/logger` on Unix-like systems. 
+
 
 ### Usage
 
@@ -84,7 +87,6 @@ logger info "This is an info message"
 logger warn "This is a warning message"
 logger error "This is an error message"
 ```
-
 
 
 ## License
