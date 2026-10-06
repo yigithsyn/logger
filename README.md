@@ -61,6 +61,30 @@ console.error('This is an error message');
 
 ![alt text](docs/img/terminal-console.png)
 
+## Command Line Interface (CLI)
+
+You can use the logger library from the command line to log messages with different log levels.
+
+### Usage
+
+```bash
+logger <logLevel> <logMessage> [-h, --help]
+```
+
+### Options
+
+- `logLevel`    The log level to use (e.g., "debug", "log", "info", "warn", "error"). Defaults to "info".
+- `logMessage`  The log message to output.
+- `-h, --help`  Show this help message.
+
+### Examples
+
+```bash
+logger info "This is an info message"
+logger warn "This is a warning message"
+logger error "This is an error message"
+```
+
 
 
 ## License

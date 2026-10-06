@@ -2,6 +2,9 @@
     "name": "@yigithsyn/logger",
     "version": "1.0.0",
     "type": "commonjs",
+    "bin": {
+        "logger": "./cli.js"
+    },
     "main": "./index.js",
     "module": "./index.mjs",
     "exports": {
