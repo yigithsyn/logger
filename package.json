@@ -1,6 +1,6 @@
 {
     "name": "@yigithsyn/logger",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "type": "commonjs",
     "bin": {
         "logger": "./cli.js"
