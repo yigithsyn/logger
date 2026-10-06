@@ -76,11 +76,20 @@ const os = require('node:os');
 const path = require('node:path');
 
 const sqlite3 = (() => {
+    // Suppress only the SQLite ExperimentalWarning while loading the module.
+    const originalEmitWarning = process.emitWarning;
+    process.emitWarning = (warning, ...args) => {
+        const message = typeof warning === 'string' ? warning : warning && warning.message;
+        if (message && message.includes('SQLite is an experimental feature')) return;
+        return originalEmitWarning.call(process, warning, ...args);
+    };
     try {
         return require('node:sqlite');
     } catch (error) {
         console.error(`Failed to load sqlite3 module: ${error.message}`);
         return null;
+    } finally {
+        process.emitWarning = originalEmitWarning;
     }
 })();
 
