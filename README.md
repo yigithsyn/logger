@@ -88,6 +88,16 @@ logger warn "This is a warning message"
 logger error "This is an error message"
 ```
 
+The shorthand commands select the log level for you:
+
+```bash
+llogger "This is a log message"
+dlogger "This is a debug message"
+ilogger "This is an info message"
+wlogger "This is a warning message"
+elogger "This is an error message"
+```
+
 
 ## License
 
