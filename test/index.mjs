@@ -1,5 +1,4 @@
-// ES Module version testing
-import logger from '../index.js';
+import '../index.js';
 
 console.debug('Debug log printed');
 console.log('Log log printed');

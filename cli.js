@@ -1,6 +1,10 @@
 #!/usr/bin/env node
 
 
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+
 const help = `
 Usage: logger <logLevel> <logMessage> [-h, --help]
 
@@ -45,7 +49,7 @@ if (!['debug', 'log', 'info', 'warn', 'error'].includes(logLevel)) {
 // Parse log message
 const logMessage = args.slice(1).join(' ');
 
-require('./index.js');
+await import('./index.js');
 
 switch (logLevel) {
     case 'debug':
@@ -71,11 +75,7 @@ switch (logLevel) {
 /**
  * Store the log in the database
  */
-const fs = require('node:fs');
-const os = require('node:os');
-const path = require('node:path');
-
-const sqlite3 = (() => {
+const sqlite3 = await (async () => {
     // Suppress only the SQLite ExperimentalWarning while loading the module.
     const originalEmitWarning = process.emitWarning;
     process.emitWarning = (warning, ...args) => {
@@ -84,7 +84,7 @@ const sqlite3 = (() => {
         return originalEmitWarning.call(process, warning, ...args);
     };
     try {
-        return require('node:sqlite');
+        return await import('node:sqlite');
     } catch (error) {
         console.error(`Failed to load sqlite3 module: ${error.message}`);
         return null;
@@ -159,4 +159,3 @@ function storeLog(logLevel, logMessage) {
 
 // Store the log in the database
 storeLog(logLevel, logMessage);
-

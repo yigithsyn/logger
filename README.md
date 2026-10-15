@@ -16,27 +16,15 @@ npm install @yigithsyn/logger
 ### Vanilla JavaScript
 
 ```html
-<script src="https://unpkg.com/@yigithsyn/logger"></script>
+<script type="module" src="https://unpkg.com/@yigithsyn/logger"></script>
 
-<script>
+<script type="module">
     console.debug('This is a debug message');
     console.log('This is a log message');
     console.info('This is an info message');
     console.warn('This is a warning message');
     console.error('This is an error message');
 </script>
-```
-
-### CommonJS
-
-```javascript
-require('@yigithsyn/logger');
-
-console.debug('This is a debug message');
-console.log('This is a log message');
-console.info('This is an info message');
-console.warn('This is a warning message');
-console.error('This is an error message');
 ```
 
 ### ES Modules

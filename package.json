@@ -1,7 +1,7 @@
 {
     "name": "@yigithsyn/logger",
     "version": "1.3.0",
-    "type": "commonjs",
+    "type": "module",
     "bin": {
         "logger": "./cli.js",
         "llogger": "./bin/llogger.js",
@@ -25,15 +25,12 @@
     ],
     "homepage": "https://yigithsyn.github.io/logger",
     "main": "./index.js",
-    "module": "./index.mjs",
-    "exports": {
-        "require": "./index.js",
-        "import": "./index.mjs"
-    },
+    "module": "./index.js",
+    "exports": "./index.js",
     "scripts": {
         "test": "node --test",
         "release": "bash release.sh",
-        "doc": "jsdoc -c jsdoc.json"
+        "doc": "jsdoc -c jsdoc.json && node docs/fix-readme-image-paths.js"
     },
     "devDependencies": {
         "jsdoc": "^4.0.5"
