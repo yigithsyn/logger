@@ -1,12 +1,14 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
+set -euo pipefail
 
-ver=$(jq -r '.version' package.json)
-echo "- Releasing version: $ver ..."
+version=$(cat VERSION)
+tag="v${version}"
 
-printf "  - Creating tag v%s ... " "$ver"
-git tag v$ver && git push origin v$ver > /dev/null 2>&1
-printf "DONE\n"
+if git rev-parse --verify --quiet "refs/tags/${tag}" >/dev/null; then
+    printf 'Error: tag %s already exists\n' "$tag" >&2
+    exit 1
+fi
 
-printf "  - Publishing version %s to NPM registry ... " "$ver"
-npm publish --access public > /dev/null 2>&1
-printf "DONE\n"
+printf 'Creating and pushing tag %s...\n' "$tag"
+git tag "$tag"
+git push origin "$tag"

@@ -1,92 +1,68 @@
-# Simple and Colorful Logger Library
+# logger
 
-Logger library for colorful and simple logging in JavaScript applications.
-It also adds timestamps to each log message.
+A small, dependency-free C logging library. It writes timestamped, colored
+messages with the `DEBUG`, `LOG`, `INFO`, `WARN`, and `ERROR` levels.
 
-## Installation
+## Build and test
 
-You can install the logger library using npm:
+With CMake:
 
-```bash
-npm install @yigithsyn/logger
+```sh
+cmake -S . -B build
+cmake --build build
+ctest --test-dir build -C Debug --output-on-failure
+```
+
+Or with the Makefile:
+
+```sh
+make
+make test
+```
+
+The CMake build provides the `logger` library target and the
+`logger::logger` alias. Link your CMake target with `logger::logger`. To
+install the library and public header:
+
+```sh
+cmake --install build --prefix <install-directory>
 ```
 
 ## Usage
 
-### Vanilla JavaScript
+```c
+#include <logger.h>
 
-```html
-<script type="module" src="https://unpkg.com/@yigithsyn/logger"></script>
-
-<script type="module">
-    console.debug('This is a debug message');
-    console.log('This is a log message');
-    console.info('This is an info message');
-    console.warn('This is a warning message');
-    console.error('This is an error message');
-</script>
+int main(void)
+{
+    logger_info("Listening on port %d", 8080);
+    logger_warn("Retrying %s", "connection");
+    logger_error("Request %lu failed", 42UL);
+    return 0;
+}
 ```
 
-### ES Modules
+Link the program against `logger` and include the installed `logger.h`
+header. The API also provides `logger_debug`, `logger_log`, and
+`logger_write` for selecting a level dynamically.
 
-```javascript
-import '@yigithsyn/logger';
+Messages are written to `stdout` by default. Timestamps (UTC, in ISO 8601
+format) and ANSI color are enabled by default. Each line contains the level,
+timestamp (when enabled), and formatted message. For example, with color
+disabled:
 
-console.debug('This is a debug message');
-console.log('This is a log message');
-console.info('This is an info message');
-console.warn('This is a warning message');
-console.error('This is an error message');
+```text
+[INFO] 2026-01-02T03:04:05Z Listening on port 8080
 ```
 
-## Output Format
+Use `logger_set_output`, `logger_set_timestamp`, and `logger_set_color` to
+configure the process-wide logger. Pass a nonzero value to enable timestamps
+or color, or `0` to disable them. `logger_set_output` rejects `NULL`; the
+selected stream remains owned by the caller and must remain open while in use.
 
-### HTML Console:
-
-![alt text](docs/img/html-console.png)
-
-### Terminal Console:
-
-![alt text](docs/img/terminal-console.png)
-
-## Command Line Interface (CLI)
-
-You can use the logger library from the command line to log messages with different log levels. 
-CLI tool stores all log messages in a local SQLite database for later retrieval and analysis. 
-Database file is created in the user's local application data (LOCALAPPDATA) directory on Windows or in `~/logger` on Unix-like systems. 
-
-
-### Usage
-
-```bash
-logger <logLevel> <logMessage> [-h, --help]
-```
-
-### Options
-
-- `logLevel`    The log level to use (e.g., "debug", "log", "info", "warn", "error"). Defaults to "info".
-- `logMessage`  The log message to output.
-- `-h, --help`  Show this help message.
-
-### Examples
-
-```bash
-logger info "This is an info message"
-logger warn "This is a warning message"
-logger error "This is an error message"
-```
-
-The shorthand commands select the log level for you:
-
-```bash
-llogger "This is a log message"
-dlogger "This is a debug message"
-ilogger "This is an info message"
-wlogger "This is a warning message"
-elogger "This is an error message"
-```
-
-
-## License
-
-This project is licensed under the BSD License.
+The level-specific functions (`logger_debug`, `logger_log`, `logger_info`,
+`logger_warn`, and `logger_error`) accept `printf`-style format strings.
+`logger_write` takes a `logger_level` as its first argument to select a level
+dynamically. These logging functions return `0` on success and `-1` for an
+invalid level, a `NULL` format, or a time-generation or output error. Each
+successful call appends a newline and flushes the output stream.
