@@ -29,6 +29,15 @@ include(GNUInstallDirs)
 add_library(logger src/logger.c)
 add_library(logger::logger ALIAS logger)
 
+add_executable(logger_cli src/logger_cli.c)
+set_target_properties(logger_cli PROPERTIES OUTPUT_NAME logger)
+set_target_properties(logger_cli PROPERTIES
+    C_STANDARD 90
+    C_STANDARD_REQUIRED YES
+    C_EXTENSIONS NO
+)
+target_link_libraries(logger_cli PRIVATE logger::logger)
+
 target_include_directories(logger
     PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -44,6 +53,9 @@ install(TARGETS logger
     EXPORT logger_targets
     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
+install(TARGETS logger_cli
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 install(FILES include/logger.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
@@ -62,4 +74,18 @@ if(BUILD_TESTING)
         C_EXTENSIONS NO
     )
     add_test(NAME logger COMMAND test_logger)
+
+    add_test(NAME logger_cli_help COMMAND logger_cli --help)
+    set_tests_properties(logger_cli_help PROPERTIES
+        PASS_REGULAR_EXPRESSION "Usage: logger"
+    )
+
+    add_test(NAME logger_cli_message
+        COMMAND logger_cli --no-color --no-timestamp --level warn "hello world")
+    set_tests_properties(logger_cli_message PROPERTIES
+        PASS_REGULAR_EXPRESSION "\\[WARN\\] hello world"
+    )
+
+    add_test(NAME logger_cli_invalid_level COMMAND logger_cli --level invalid test)
+    set_tests_properties(logger_cli_invalid_level PROPERTIES WILL_FAIL TRUE)
 endif()

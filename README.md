@@ -2,6 +2,7 @@
 
 A small, dependency-free C logging library. It writes timestamped, colored
 messages with the `DEBUG`, `LOG`, `INFO`, `WARN`, and `ERROR` levels.
+It also provides a `logger` command-line tool.
 
 ## Build and test
 
@@ -19,6 +20,19 @@ Or with the Makefile:
 make
 make test
 ```
+
+The CMake build produces the `logger` command-line executable and installs it
+alongside the library. It accepts a message as arguments or reads one message
+per line from standard input:
+
+```sh
+logger --level warn "Retrying connection"
+printf 'Started\nReady\n' | logger --no-color
+```
+
+Use `logger --help` to see the available levels and options. By default, the
+CLI uses the `info` level and the library's default timestamp and color
+settings.
 
 The CMake build provides the `logger` library target and the
 `logger::logger` alias. Link your CMake target with `logger::logger`. To
